@@ -63,7 +63,7 @@
                             </descriptorRefs>
                             <archive>
                                 <manifest>
-                                    <mainClass>tz.go.moh.him.hdr.mediator.emr.MediatorMain</mainClass>
+                                    <mainClass>tz.go.moh.him.ffars.mediator.e9.MediatorMain</mainClass>
                                 </manifest>
                             </archive>
                         </configuration>
