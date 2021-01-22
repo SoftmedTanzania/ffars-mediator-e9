@@ -24,10 +24,29 @@ import java.util.Arrays;
 import java.util.List;
 
 public abstract class BaseOrchestrator extends UntypedActor {
+    /**
+     * The mediator configuration.
+     */
     protected final MediatorConfig config;
+
+    /**
+     * The logger instance.
+     */
     private final LoggingAdapter log = Logging.getLogger(getContext().system(), this);
+
+    /**
+     * Represents a list of error messages, if any,that have been caught during payload data validation to be returned to the source system as response.
+     */
     protected List<ErrorMessage> errorMessages = new ArrayList<>();
+
+    /**
+     * Represents a mediator request.
+     */
     protected MediatorHTTPRequest originalRequest;
+
+    /**
+     * Represents an Error Messages Definition Resource Object defined in <a href="file:../resources/error-messages.json">/resources/error-messages.json</a>.
+     */
     protected JSONObject errorMessageResource;
 
     /**

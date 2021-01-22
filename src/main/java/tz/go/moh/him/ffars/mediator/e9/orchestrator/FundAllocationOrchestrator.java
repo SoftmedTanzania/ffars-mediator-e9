@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FundAllocationOrchestrator extends BaseOrchestrator {
+    /**
+     * Represents an Error Messages Definition Resource Object defined in <a href="file:../resources/error-messages.json">/resources/error-messages.json</a>.
+     */
     protected JSONObject fundAllocationErrorMessageResource;
 
     public FundAllocationOrchestrator(MediatorConfig config) {
@@ -30,13 +33,13 @@ public class FundAllocationOrchestrator extends BaseOrchestrator {
     public List<ResultDetail> validateRequiredFields(FundAllocation.Item item) {
         List<ResultDetail> resultDetailsList = new ArrayList<>();
         if (StringUtils.isBlank(item.getFacilityCode()))
-            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, fundAllocationErrorMessageResource.getString("ERROR_DOB_IS_BLANK"), null));
+            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, fundAllocationErrorMessageResource.getString("ERROR_FACILITY_CODE_IS_BLANK"), null));
 
         if (StringUtils.isBlank(item.getFacilityName()))
-            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(fundAllocationErrorMessageResource.getString("ERROR_MESSAGE_TYPE_IS_BLANK"), item.getFacilityName()), null));
+            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(fundAllocationErrorMessageResource.getString("ERROR_FACILITY_NAME_IS_BLANK"), item.getFacilityCode()), null));
 
         if (StringUtils.isBlank(item.getFacilityType()))
-            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(fundAllocationErrorMessageResource.getString("ERROR_DATE_DEATH_OCCURRED_IS_BLANK"), item.getFacilityType()), null));
+            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(fundAllocationErrorMessageResource.getString("ERROR_FACILITY_TYPE_IS_BLANK"), item.getFacilityCode()), null));
 
 
         return resultDetailsList;
@@ -79,18 +82,23 @@ public class FundAllocationOrchestrator extends BaseOrchestrator {
     }
 
 
+    /**
+     * Validate Fund Allocation uuid and apply date
+     *
+     * @param fundAllocation to be validated
+     */
     private void validateFundAllocation(FundAllocation fundAllocation) {
         ErrorMessage errorMessage = new ErrorMessage();
         List<ResultDetail> resultDetailsList = new ArrayList<>();
 
         errorMessage.setSource(new Gson().toJson(fundAllocation));
 
-        if (StringUtils.isBlank(fundAllocation.getUid())){
-            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, fundAllocationErrorMessageResource.getString("ERROR_DOB_IS_BLANK"), null));
+        if (StringUtils.isBlank(fundAllocation.getUid())) {
+            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, fundAllocationErrorMessageResource.getString("ERROR_UUID_IS_BLANK"), null));
         }
 
-        if (StringUtils.isBlank(fundAllocation.getApplyDate())){
-            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, fundAllocationErrorMessageResource.getString("ERROR_DOB_IS_BLANK"), null));
+        if (StringUtils.isBlank(fundAllocation.getApplyDate())) {
+            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, fundAllocationErrorMessageResource.getString("ERROR_APPLY_DATE_IS_BLANK"), null));
         }
 
 

@@ -17,10 +17,20 @@ import java.util.List;
 import java.util.Map;
 
 public class FfarsActor extends UntypedActor {
+    /**
+     * The mediator configuration.
+     */
     private final MediatorConfig config;
-    private final LoggingAdapter log = Logging.getLogger(getContext().system(), this);
-    private ActorRef requestHandler;
 
+    /**
+     * The logger instance.
+     */
+    private final LoggingAdapter log = Logging.getLogger(getContext().system(), this);
+
+    /**
+     * Represents the requestHandler that will be used to process requests and responses.
+     */
+    private ActorRef requestHandler;
 
     public FfarsActor(MediatorConfig config) {
         this.config = config;

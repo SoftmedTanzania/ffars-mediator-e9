@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExpenditureOrchestrator extends BaseOrchestrator {
+    /**
+     * Represents an Error Messages Definition Resource Object defined in <a href="file:../resources/error-messages.json">/resources/error-messages.json</a>.
+     */
     protected JSONObject expenditureErrorMessageResource;
 
     public ExpenditureOrchestrator(MediatorConfig config) {
@@ -23,7 +26,7 @@ public class ExpenditureOrchestrator extends BaseOrchestrator {
     }
 
     /**
-     * Validate Expenditure Required Fields
+     * Validate Expenditure Item Required Fields
      *
      * @param item to be validated
      * @return array list of validation results details incase of failed validations
@@ -31,19 +34,19 @@ public class ExpenditureOrchestrator extends BaseOrchestrator {
     public List<ResultDetail> validateRequiredFields(Expenditure.Item item) {
         List<ResultDetail> resultDetailsList = new ArrayList<>();
         if (StringUtils.isBlank(item.getInvoiceNumber()))
-            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, expenditureErrorMessageResource.getString("ERROR_DOB_IS_BLANK"), null));
+            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, expenditureErrorMessageResource.getString("ERROR_INVOICE_NUMBER_IS_BLANK"), null));
 
         if (StringUtils.isBlank(item.getOrderDate()))
-            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(expenditureErrorMessageResource.getString("ERROR_MESSAGE_TYPE_IS_BLANK"), item.getInvoiceNumber()), null));
+            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(expenditureErrorMessageResource.getString("ERROR_ORDER_DATE_IS_BLANK"), item.getInvoiceNumber()), null));
 
         if (StringUtils.isBlank(item.getFacilityName()))
-            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(expenditureErrorMessageResource.getString("ERROR_DATE_DEATH_OCCURRED_IS_BLANK"), item.getFacilityName()), null));
+            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(expenditureErrorMessageResource.getString("ERROR_FACILITY_NAME_IS_BLANK"), item.getFacilityName()), null));
 
         if (StringUtils.isBlank(item.getFacilityCode()))
-            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(expenditureErrorMessageResource.getString("ERROR_DATE_DEATH_OCCURRED_IS_BLANK"), item.getInvoiceNumber()), null));
+            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(expenditureErrorMessageResource.getString("ERROR_FACILITY_CODE_IS_BLANK"), item.getInvoiceNumber()), null));
 
         if (StringUtils.isBlank(item.getFacilityType()))
-            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(expenditureErrorMessageResource.getString("ERROR_DATE_DEATH_OCCURRED_IS_BLANK"), item.getInvoiceNumber()), null));
+            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(expenditureErrorMessageResource.getString("ERROR_FACILITY_TYPE_IS_BLANK"), item.getInvoiceNumber()), null));
 
 
         return resultDetailsList;
@@ -87,6 +90,11 @@ public class ExpenditureOrchestrator extends BaseOrchestrator {
         return errorMessages.size() == 0;
     }
 
+    /**
+     * Validate Expenditure uuid and apply date
+     *
+     * @param expenditure to be validated
+     */
     private void validateExpenditure(Expenditure expenditure) {
         ErrorMessage errorMessage = new ErrorMessage();
         List<ResultDetail> resultDetailsList = new ArrayList<>();
@@ -94,12 +102,11 @@ public class ExpenditureOrchestrator extends BaseOrchestrator {
         errorMessage.setSource(new Gson().toJson(expenditure));
 
         if (StringUtils.isBlank(expenditure.getApplyDate())){
-            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, expenditureErrorMessageResource.getString("ERROR_DOB_IS_BLANK"), null));
+            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, expenditureErrorMessageResource.getString("ERROR_APPLY_DATE_IS_BLANK"), null));
         }
 
-
         if (StringUtils.isBlank(expenditure.getUid())){
-            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, expenditureErrorMessageResource.getString("ERROR_DOB_IS_BLANK"), null));
+            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, expenditureErrorMessageResource.getString("ERROR_UUID_IS_BLANK"), null));
         }
 
         if (resultDetailsList.size() != 0) {
