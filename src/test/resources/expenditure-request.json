@@ -1,0 +1,19 @@
+{
+  "UID": 4590,
+  "ApplyDate": "12-02-2019",
+  "Items": [
+    {
+      "OrderDate": "12-09-2018",
+      "InvoiceNumber": "INV003-2019",
+      "FacilityCode": "109089890",
+      "FacilityName": "Majengo",
+      "FacilityType": "HC",
+      "Operational": true,
+      "TotalCost": 30000,
+      "InKInd": 24000,
+      "OtherSource": 6000,
+      "Description": "Any description  or empty",
+      "CurrentBalance": 20000
+    }
+  ]
+}

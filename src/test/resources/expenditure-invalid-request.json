@@ -1,0 +1,19 @@
+{
+  "UID": 4590,
+  "ApplyDate": "",
+  "Items": [
+    {
+      "OrderDate": "",
+      "InvoiceNumber": "",
+      "FacilityCode": "",
+      "FacilityName": "",
+      "FacilityType": "",
+      "Operational": true,
+      "TotalCost": 30000,
+      "InKInd": 24000,
+      "OtherSource": 6000,
+      "Description": "",
+      "CurrentBalalance": 20000
+    }
+  ]
+}
