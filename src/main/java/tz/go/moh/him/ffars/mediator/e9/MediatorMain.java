@@ -36,8 +36,8 @@ public class MediatorMain {
     private static RoutingTable buildRoutingTable() throws RoutingTable.RouteAlreadyMappedException {
         RoutingTable routingTable = new RoutingTable();
 
-        routingTable.addRoute("/ffars/expenditure", ExpenditureOrchestrator.class);
-        routingTable.addRoute("/ffars/fund_allocation", FundAllocationOrchestrator.class);
+        routingTable.addRoute("/ffars-expenditure", ExpenditureOrchestrator.class);
+        routingTable.addRoute("/ffars-fund-allocation", FundAllocationOrchestrator.class);
 
         return routingTable;
     }
