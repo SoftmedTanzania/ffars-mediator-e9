@@ -14,11 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FundAllocationOrchestrator extends BaseOrchestrator {
-    protected JSONObject dailyDeathCountErrorMessageResource;
+    protected JSONObject fundAllocationErrorMessageResource;
 
     public FundAllocationOrchestrator(MediatorConfig config) {
         super(config);
-        dailyDeathCountErrorMessageResource = errorMessageResource.getJSONObject("FACILITY_FUND_ALLOCATION_ERROR_MESSAGES");
+        fundAllocationErrorMessageResource = errorMessageResource.getJSONObject("FACILITY_FUND_ALLOCATION_ERROR_MESSAGES");
     }
 
     /**
@@ -30,13 +30,13 @@ public class FundAllocationOrchestrator extends BaseOrchestrator {
     public List<ResultDetail> validateRequiredFields(FundAllocation.Item item) {
         List<ResultDetail> resultDetailsList = new ArrayList<>();
         if (StringUtils.isBlank(item.getFacilityCode()))
-            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, dailyDeathCountErrorMessageResource.getString("ERROR_DOB_IS_BLANK"), null));
+            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, fundAllocationErrorMessageResource.getString("ERROR_DOB_IS_BLANK"), null));
 
         if (StringUtils.isBlank(item.getFacilityName()))
-            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(dailyDeathCountErrorMessageResource.getString("ERROR_MESSAGE_TYPE_IS_BLANK"), item.getFacilityName()), null));
+            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(fundAllocationErrorMessageResource.getString("ERROR_MESSAGE_TYPE_IS_BLANK"), item.getFacilityName()), null));
 
         if (StringUtils.isBlank(item.getFacilityType()))
-            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(dailyDeathCountErrorMessageResource.getString("ERROR_DATE_DEATH_OCCURRED_IS_BLANK"), item.getFacilityType()), null));
+            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(fundAllocationErrorMessageResource.getString("ERROR_DATE_DEATH_OCCURRED_IS_BLANK"), item.getFacilityType()), null));
 
 
         return resultDetailsList;
@@ -51,30 +51,54 @@ public class FundAllocationOrchestrator extends BaseOrchestrator {
     protected boolean validateData(Object object) {
         FundAllocation fundAllocation = (FundAllocation) object;
 
+        validateFundAllocation(fundAllocation);
 
         for (FundAllocation.Item item : fundAllocation.getItems()) {
-            ErrorMessage errorMessage = new ErrorMessage();
-            errorMessage.setSource(new Gson().toJson(fundAllocation));
+            ErrorMessage fundAllocationItemErrorMessage = new ErrorMessage();
+            fundAllocationItemErrorMessage.setSource(new Gson().toJson(fundAllocation));
 
-            List<ResultDetail> resultDetailsList = new ArrayList<>();
-            resultDetailsList.addAll(validateRequiredFields(item));
+            List<ResultDetail> fundAllcoationItemResultDetailsList = new ArrayList<>();
+            fundAllcoationItemResultDetailsList.addAll(validateRequiredFields(item));
 
             try {
                 if (!DateValidatorUtils.isValidPastDate(fundAllocation.getApplyDate(), "dd-mm-yyyy")) {
-                    resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(dailyDeathCountErrorMessageResource.getString("ERROR_DATE_DEATH_OCCURRED_IS_NOT_A_VALID_PAST_DATE"), fundAllocation.getUid()), null));
+                    fundAllcoationItemResultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(fundAllocationErrorMessageResource.getString("ERROR_DATE_DEATH_OCCURRED_IS_NOT_A_VALID_PAST_DATE"), fundAllocation.getUid()), null));
                 }
             } catch (ParseException e) {
-                resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(dailyDeathCountErrorMessageResource.getString("ERROR_DATE_DEATH_OCCURRED_INVALID_FORMAT"), fundAllocation.getUid()), tz.go.moh.him.mediator.core.utils.StringUtils.writeStackTraceToString(e)));
+                fundAllcoationItemResultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(fundAllocationErrorMessageResource.getString("ERROR_DATE_DEATH_OCCURRED_INVALID_FORMAT"), fundAllocation.getUid()), tz.go.moh.him.mediator.core.utils.StringUtils.writeStackTraceToString(e)));
             }
 
             //TODO implement additional data validations checks
-            if (resultDetailsList.size() != 0) {
+            if (fundAllcoationItemResultDetailsList.size() != 0) {
                 //Adding the validation results to the Error message object
-                errorMessage.setResultsDetails(resultDetailsList);
-                errorMessages.add(errorMessage);
+                fundAllocationItemErrorMessage.setResultsDetails(fundAllcoationItemResultDetailsList);
+                errorMessages.add(fundAllocationItemErrorMessage);
             }
         }
         return errorMessages.size() == 0;
+    }
+
+
+    private void validateFundAllocation(FundAllocation fundAllocation) {
+        ErrorMessage errorMessage = new ErrorMessage();
+        List<ResultDetail> resultDetailsList = new ArrayList<>();
+
+        errorMessage.setSource(new Gson().toJson(fundAllocation));
+
+        if (StringUtils.isBlank(fundAllocation.getUid())){
+            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, fundAllocationErrorMessageResource.getString("ERROR_DOB_IS_BLANK"), null));
+        }
+
+        if (StringUtils.isBlank(fundAllocation.getApplyDate())){
+            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, fundAllocationErrorMessageResource.getString("ERROR_DOB_IS_BLANK"), null));
+        }
+
+
+        if (resultDetailsList.size() != 0) {
+            //Adding the validation results to the Error message object
+            errorMessage.setResultsDetails(resultDetailsList);
+            errorMessages.add(errorMessage);
+        }
     }
 
 }

@@ -57,25 +57,8 @@ public class ExpenditureOrchestrator extends BaseOrchestrator {
     @Override
     protected boolean validateData(Object object) {
         Expenditure expenditure = (Expenditure) object;
-        ErrorMessage errorMessage = new ErrorMessage();
-        List<ResultDetail> resultDetailsList = new ArrayList<>();
 
-        errorMessage.setSource(new Gson().toJson(expenditure));
-
-        if (StringUtils.isBlank(expenditure.getUid())){
-            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, expenditureErrorMessageResource.getString("ERROR_DOB_IS_BLANK"), null));
-        }
-
-
-        if (StringUtils.isBlank(expenditure.getUid())){
-            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, expenditureErrorMessageResource.getString("ERROR_DOB_IS_BLANK"), null));
-        }
-
-        if (resultDetailsList.size() != 0) {
-            //Adding the validation results to the Error message object
-            errorMessage.setResultsDetails(resultDetailsList);
-            errorMessages.add(errorMessage);
-        }
+        validateExpenditure(expenditure);
 
         for (Expenditure.Item item : expenditure.getItems()) {
             ErrorMessage itemErrorMessage = new ErrorMessage();
@@ -103,5 +86,28 @@ public class ExpenditureOrchestrator extends BaseOrchestrator {
         }
         return errorMessages.size() == 0;
     }
+
+    private void validateExpenditure(Expenditure expenditure) {
+        ErrorMessage errorMessage = new ErrorMessage();
+        List<ResultDetail> resultDetailsList = new ArrayList<>();
+
+        errorMessage.setSource(new Gson().toJson(expenditure));
+
+        if (StringUtils.isBlank(expenditure.getApplyDate())){
+            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, expenditureErrorMessageResource.getString("ERROR_DOB_IS_BLANK"), null));
+        }
+
+
+        if (StringUtils.isBlank(expenditure.getUid())){
+            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, expenditureErrorMessageResource.getString("ERROR_DOB_IS_BLANK"), null));
+        }
+
+        if (resultDetailsList.size() != 0) {
+            //Adding the validation results to the Error message object
+            errorMessage.setResultsDetails(resultDetailsList);
+            errorMessages.add(errorMessage);
+        }
+    }
+
 
 }

@@ -6,6 +6,9 @@ import akka.event.LoggingAdapter;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.openhim.mediator.engine.*;
+import tz.go.moh.him.ffars.mediator.e9.orchestrator.ExpenditureOrchestrator;
+import tz.go.moh.him.ffars.mediator.e9.orchestrator.FundAllocationOrchestrator;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,7 +21,8 @@ public class MediatorMain {
 
         //TODO Configure routes here
         //...
-        routingTable.addRoute("/ffars", DefaultOrchestrator.class);
+        routingTable.addRoute("/ffars/expenditure", ExpenditureOrchestrator.class);
+        routingTable.addRoute("/ffars/fund_allocation", FundAllocationOrchestrator.class);
 
         return routingTable;
     }
