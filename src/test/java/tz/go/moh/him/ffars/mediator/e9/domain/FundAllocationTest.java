@@ -19,18 +19,12 @@ public class FundAllocationTest {
      * Tests the deserialization of an FundAllocation.
      */
     @Test
-    public void testDeserializeFundAllocation() {
+    public void testDeserializeFundAllocation() throws IOException {
         InputStream stream = FundAllocationTest.class.getClassLoader().getResourceAsStream("facility-funds-allocation-request.json");
 
         Assert.assertNotNull(stream);
 
-        String data;
-
-        try {
-            data = IOUtils.toString(stream);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        String data = IOUtils.toString(stream);
 
         Assert.assertNotNull(data);
 
