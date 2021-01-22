@@ -10,6 +10,9 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.openhim.mediator.engine.MediatorConfig;
 import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
 import org.openhim.mediator.engine.messages.MediatorHTTPResponse;
+import org.openhim.mediator.engine.messages.SimpleMediatorRequest;
+import tz.go.moh.him.ffars.mediator.e9.domain.Expenditure;
+import tz.go.moh.him.ffars.mediator.e9.domain.FundAllocation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +20,16 @@ import java.util.List;
 import java.util.Map;
 
 public class FfarsActor extends UntypedActor {
+    /**
+     * The String constants representing Expenditure payload type
+     */
+    public static final String EXPENDITURE = "expenditure";
+
+    /**
+     * The String constants representing Facility fund allocation payload type
+     */
+    public static final String FACILITY_FUNDS_ALLOCATIONS = "facility_funds_allocations";
+
     /**
      * The mediator configuration.
      */
@@ -36,7 +49,7 @@ public class FfarsActor extends UntypedActor {
         this.config = config;
     }
 
-    private void forwardToFfars(String message) {
+    private void forwardToFfars(String message, String type) {
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
 
@@ -47,16 +60,23 @@ public class FfarsActor extends UntypedActor {
             scheme = "http";
         }
 
+        String path = "";
+        if (type.equals(FACILITY_FUNDS_ALLOCATIONS)) {
+            path = config.getProperty("ffars.api.fund_allocation.path");
+        } else if(type.equals(EXPENDITURE)) {
+            path = config.getProperty("ffars.api.expenditure.path");
+        }
+
         List<Pair<String, String>> params = new ArrayList<>();
 
-        MediatorHTTPRequest forwardToHdrRequest = new MediatorHTTPRequest(
+        MediatorHTTPRequest forwardToFffarsRequest = new MediatorHTTPRequest(
                 requestHandler, getSelf(), "Sending Data to the FFARS Server", "POST", scheme,
-                config.getProperty("ffars.host"), Integer.parseInt(config.getProperty("ffars.api.port")), config.getProperty("ffars.api.path"),
+                config.getProperty("ffars.host"), Integer.parseInt(config.getProperty("ffars.api.port")), path,
                 message, headers, params
         );
 
         ActorSelection httpConnector = getContext().actorSelection(config.userPathFor("http-connector"));
-        httpConnector.tell(forwardToHdrRequest, getSelf());
+        httpConnector.tell(forwardToFffarsRequest, getSelf());
     }
 
 
@@ -67,11 +87,17 @@ public class FfarsActor extends UntypedActor {
 
     @Override
     public void onReceive(Object msg) throws Exception {
-        if (msg instanceof MediatorHTTPRequest) { //process message
+        if (SimpleMediatorRequest.isInstanceOf(Expenditure.class, msg)) {
             log.info("Sending data to FFARS ...");
 
             requestHandler = ((MediatorHTTPRequest) msg).getRequestHandler();
-            forwardToFfars(new Gson().toJson(((MediatorHTTPRequest) msg).getBody()));
+            forwardToFfars(new Gson().toJson(((MediatorHTTPRequest) msg).getBody()), EXPENDITURE);
+
+        } else if (SimpleMediatorRequest.isInstanceOf(FundAllocation.class, msg)) {
+            log.info("Sending data to FFARS ...");
+
+            requestHandler = ((MediatorHTTPRequest) msg).getRequestHandler();
+            forwardToFfars(new Gson().toJson(((MediatorHTTPRequest) msg).getBody()), FACILITY_FUNDS_ALLOCATIONS);
 
         } else if (msg instanceof MediatorHTTPResponse) { //respond
             log.info("Received response from FFARS");
