@@ -8,6 +8,7 @@ import tz.go.moh.him.mediator.core.exceptions.ArgumentNullException;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 
 /**
  * Contains tests for the {@link FundAllocation} class.
@@ -55,8 +56,8 @@ public class FundAllocationTest {
      */
     @Test
     public void testSerializeFundAllocation() {
-
-        FundAllocation fundAllocation = new FundAllocation("123412341234", "12-02-2019",null);
+        FundAllocation.Item item = new FundAllocation.Item("109089890", "Mahida", "DISP", true, 40000, "desc", 30000);
+        FundAllocation fundAllocation = new FundAllocation("123412341234", "12-02-2019", Arrays.asList(item));
 
         Gson gson = new Gson();
 
@@ -64,6 +65,12 @@ public class FundAllocationTest {
 
         Assert.assertTrue(actual.contains("123412341234"));
         Assert.assertTrue(actual.contains("12-02-2019"));
+        Assert.assertTrue(actual.contains("109089890"));
+        Assert.assertTrue(actual.contains("Mahida"));
+        Assert.assertTrue(actual.contains("DISP"));
+        Assert.assertTrue(actual.contains("40000"));
+        Assert.assertTrue(actual.contains("desc"));
+        Assert.assertTrue(actual.contains("30000"));
     }
 
     /**
@@ -71,7 +78,7 @@ public class FundAllocationTest {
      */
     @Test(expected = ArgumentNullException.class)
     public void testSerializeAckExceptionStatus() {
-        new FundAllocation("123456789", null,null);
+        new FundAllocation("123456789", null, null);
     }
 
     /**
@@ -79,6 +86,6 @@ public class FundAllocationTest {
      */
     @Test(expected = ArgumentNullException.class)
     public void testSerializeAckExceptionTransactionIdNumber() {
-        new FundAllocation(null, "Success",null);
+        new FundAllocation(null, "Success", null);
     }
 }
