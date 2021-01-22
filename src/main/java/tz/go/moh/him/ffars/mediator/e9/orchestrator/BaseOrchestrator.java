@@ -76,6 +76,8 @@ public abstract class BaseOrchestrator extends UntypedActor {
         if (msg instanceof MediatorHTTPRequest) {
             originalRequest = (MediatorHTTPRequest) msg;
 
+            log.info("Received request: " + originalRequest.getHost() + " " + originalRequest.getMethod() + " " + originalRequest.getPath());
+
             //Converting the received request body to POJO List
             Object object = null;
             try {

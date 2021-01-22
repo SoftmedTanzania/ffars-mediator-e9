@@ -88,13 +88,13 @@ public class FfarsActor extends UntypedActor {
     @Override
     public void onReceive(Object msg) throws Exception {
         if (SimpleMediatorRequest.isInstanceOf(Expenditure.class, msg)) {
-            log.info("Sending data to FFARS ...");
+            log.info("Sending Expenditure Payload to FFARS ...");
 
             requestHandler = ((SimpleMediatorRequest) msg).getRequestHandler();
             forwardToFfars(new Gson().toJson(((SimpleMediatorRequest<?>) msg).getRequestObject()), EXPENDITURE);
 
         } else if (SimpleMediatorRequest.isInstanceOf(FundAllocation.class, msg)) {
-            log.info("Sending data to FFARS ...");
+            log.info("Sending Fund Allocation Payload to FFARS ...");
 
             requestHandler = ((SimpleMediatorRequest) msg).getRequestHandler();
             forwardToFfars(new Gson().toJson(((SimpleMediatorRequest) msg).getRequestObject()), FACILITY_FUNDS_ALLOCATIONS);
