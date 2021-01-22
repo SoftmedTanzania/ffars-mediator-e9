@@ -77,7 +77,7 @@ public class FundAllocationTest {
      * Tests the exception when instantiating FundAllocation.
      */
     @Test(expected = ArgumentNullException.class)
-    public void testSerializeAckExceptionStatus() {
+    public void testSerializeFundAllocationExceptionStatus() {
         new FundAllocation("123456789", null, null);
     }
 
@@ -85,7 +85,15 @@ public class FundAllocationTest {
      * Tests the exception when instantiating FundAllocation.
      */
     @Test(expected = ArgumentNullException.class)
-    public void testSerializeAckExceptionTransactionIdNumber() {
+    public void testSerializeFundAllocationExceptionUid() {
         new FundAllocation(null, "Success", null);
+    }
+
+    /**
+     * Tests the exception when instantiating FundAllocation.
+     */
+    @Test(expected = ArgumentNullException.class)
+    public void testSerializeFundAllocationExceptionItems() {
+        new FundAllocation("12231", "Success", null);
     }
 }
