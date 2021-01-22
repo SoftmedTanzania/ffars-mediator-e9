@@ -19,10 +19,18 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * Contains tests for the {@link FundAllocationOrchestrator} class.
+ */
 public class FundAllocationOrchestratorTest extends BaseTest {
-
+    /**
+     * Represents an Error Messages Definition Resource Object defined in <a href="file:../resources/error-messages.json">/resources/error-messages.json</a>.
+     */
     protected JSONObject fundAllocationErrorMessageResource;
 
+    /**
+     * Runs initialization before each class execution.
+     */
     @Override
     public void before() throws Exception {
         super.before();
@@ -33,6 +41,9 @@ public class FundAllocationOrchestratorTest extends BaseTest {
         TestingUtils.launchActors(system, testConfig.getName(), toLaunch);
     }
 
+    /**
+     * Runs cleanup after class execution.
+     */
     @After
     public void after() {
         TestingUtils.clearRootContext(system, testConfig.getName());
@@ -40,6 +51,11 @@ public class FundAllocationOrchestratorTest extends BaseTest {
         system = null;
     }
 
+    /**
+     * Tests the mediator.
+     *
+     * @throws Exception if an exception occurs
+     */
     @Test
     public void testMediatorHTTPRequest() throws Exception {
         assertNotNull(testConfig);
@@ -75,6 +91,11 @@ public class FundAllocationOrchestratorTest extends BaseTest {
         }};
     }
 
+    /**
+     * Tests the mediator with payload with invalid payload
+     *
+     * @throws Exception if an exception occurs
+     */
     @Test
     public void testInValidPayload() throws Exception {
         assertNotNull(testConfig);

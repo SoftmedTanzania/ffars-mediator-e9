@@ -41,7 +41,6 @@ public class FundAllocationOrchestrator extends BaseOrchestrator {
         if (StringUtils.isBlank(item.getFacilityType()))
             resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(fundAllocationErrorMessageResource.getString("ERROR_FACILITY_TYPE_IS_BLANK"), item.getFacilityCode()), null));
 
-
         return resultDetailsList;
     }
 
