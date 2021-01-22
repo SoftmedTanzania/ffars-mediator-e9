@@ -10,13 +10,6 @@ import java.util.Map;
  * Represents a mock destination.
  */
 public class MockDestination extends MockHTTPConnector {
-
-    /**
-     * Initializes a new instance of the {@link MockDestination} class.
-     */
-    public MockDestination() {
-    }
-
     /**
      * Gets the response.
      *

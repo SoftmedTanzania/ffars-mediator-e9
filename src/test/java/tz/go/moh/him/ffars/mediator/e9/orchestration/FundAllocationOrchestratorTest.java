@@ -4,13 +4,11 @@ import akka.testkit.JavaTestKit;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Test;
 import org.openhim.mediator.engine.messages.FinishRequest;
 import org.openhim.mediator.engine.testing.MockLauncher;
 import org.openhim.mediator.engine.testing.TestingUtils;
 import tz.go.moh.him.ffars.mediator.e9.mock.MockDestination;
-import tz.go.moh.him.ffars.mediator.e9.orchestrator.ExpenditureOrchestrator;
 import tz.go.moh.him.ffars.mediator.e9.orchestrator.FundAllocationOrchestrator;
 
 import java.io.InputStream;
@@ -48,7 +46,7 @@ public class FundAllocationOrchestratorTest extends BaseTest {
         new JavaTestKit(system) {{
             InputStream stream = FundAllocationOrchestratorTest.class.getClassLoader().getResourceAsStream("facility-funds-allocation-request.json");
 
-            Assert.assertNotNull(stream);
+            assertNotNull(stream);
 
 
             createActorAndSendRequest(system, testConfig, getRef(), IOUtils.toString(stream), FundAllocationOrchestrator.class, "/funds_allocations");
@@ -84,7 +82,7 @@ public class FundAllocationOrchestratorTest extends BaseTest {
         new JavaTestKit(system) {{
             InputStream stream = FundAllocationOrchestratorTest.class.getClassLoader().getResourceAsStream("facility-funds-allocation-invalid-request.json");
 
-            Assert.assertNotNull(stream);
+            assertNotNull(stream);
 
             createActorAndSendRequest(system, testConfig, getRef(), IOUtils.toString(stream), FundAllocationOrchestrator.class, "/funds_allocations");
 

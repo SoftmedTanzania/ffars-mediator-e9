@@ -11,7 +11,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.openhim.mediator.engine.MediatorConfig;
 import org.openhim.mediator.engine.RegistrationConfig;
-import org.openhim.mediator.engine.messages.FinishRequest;
 import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
 import org.openhim.mediator.engine.testing.TestingUtils;
 import tz.go.moh.him.ffars.mediator.e9.MediatorMain;
@@ -20,10 +19,6 @@ import java.io.InputStream;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 public abstract class BaseTest {
     /**
@@ -78,12 +73,13 @@ public abstract class BaseTest {
 
     /**
      * Method for initiating actors, creating requests and sending request to the actor.
-     * @param system the actor system used to initialize the destination actor
+     *
+     * @param system     the actor system used to initialize the destination actor
      * @param testConfig the configuration used
-     * @param sender the sending actor
-     * @param payload the payload
-     * @param type class type of the destination orchestrator
-     * @param path to send the request
+     * @param sender     the sending actor
+     * @param payload    the payload
+     * @param type       class type of the destination orchestrator
+     * @param path       to send the request
      */
     public void createActorAndSendRequest(ActorSystem system, MediatorConfig testConfig, ActorRef sender, String payload, Class<?> type, String path) {
         final ActorRef orchestratorActor = system.actorOf(Props.create(type, testConfig));

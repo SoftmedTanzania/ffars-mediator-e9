@@ -4,7 +4,6 @@ import akka.testkit.JavaTestKit;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Test;
 import org.openhim.mediator.engine.messages.FinishRequest;
 import org.openhim.mediator.engine.testing.MockLauncher;
@@ -47,7 +46,7 @@ public class ExpenditureOrchestratorTest extends BaseTest {
         new JavaTestKit(system) {{
             InputStream stream = ExpenditureOrchestratorTest.class.getClassLoader().getResourceAsStream("expenditure-request.json");
 
-            Assert.assertNotNull(stream);
+            assertNotNull(stream);
 
 
             createActorAndSendRequest(system, testConfig, getRef(), IOUtils.toString(stream), ExpenditureOrchestrator.class, "/expenditure");
@@ -83,7 +82,7 @@ public class ExpenditureOrchestratorTest extends BaseTest {
         new JavaTestKit(system) {{
             InputStream stream = ExpenditureOrchestratorTest.class.getClassLoader().getResourceAsStream("expenditure-invalid-request.json");
 
-            Assert.assertNotNull(stream);
+            assertNotNull(stream);
 
             createActorAndSendRequest(system, testConfig, getRef(), IOUtils.toString(stream), ExpenditureOrchestrator.class, "/expenditure");
 
