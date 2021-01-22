@@ -91,7 +91,7 @@ public abstract class BaseOrchestrator extends UntypedActor {
 
             log.info("Received payload in JSON = " + new Gson().toJson(object));
 
-            if (!validateData(object))
+            if (validateData(object))
                 sendDataToFfars(object);
             else {
                 FinishRequest finishRequest = new FinishRequest(new Gson().toJson(errorMessages), "text/plain", HttpStatus.SC_BAD_REQUEST);

@@ -60,21 +60,13 @@ public class FundAllocationOrchestrator extends BaseOrchestrator {
             ErrorMessage fundAllocationItemErrorMessage = new ErrorMessage();
             fundAllocationItemErrorMessage.setSource(new Gson().toJson(fundAllocation));
 
-            List<ResultDetail> fundAllcoationItemResultDetailsList = new ArrayList<>();
-            fundAllcoationItemResultDetailsList.addAll(validateRequiredFields(item));
-
-            try {
-                if (!DateValidatorUtils.isValidPastDate(fundAllocation.getApplyDate(), "dd-mm-yyyy")) {
-                    fundAllcoationItemResultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(fundAllocationErrorMessageResource.getString("ERROR_DATE_DEATH_OCCURRED_IS_NOT_A_VALID_PAST_DATE"), fundAllocation.getUid()), null));
-                }
-            } catch (ParseException e) {
-                fundAllcoationItemResultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(fundAllocationErrorMessageResource.getString("ERROR_DATE_DEATH_OCCURRED_INVALID_FORMAT"), fundAllocation.getUid()), tz.go.moh.him.mediator.core.utils.StringUtils.writeStackTraceToString(e)));
-            }
+            List<ResultDetail> fundAllocationItemResultDetailsList = new ArrayList<>();
+            fundAllocationItemResultDetailsList.addAll(validateRequiredFields(item));
 
             //TODO implement additional data validations checks
-            if (fundAllcoationItemResultDetailsList.size() != 0) {
+            if (fundAllocationItemResultDetailsList.size() != 0) {
                 //Adding the validation results to the Error message object
-                fundAllocationItemErrorMessage.setResultsDetails(fundAllcoationItemResultDetailsList);
+                fundAllocationItemErrorMessage.setResultsDetails(fundAllocationItemResultDetailsList);
                 errorMessages.add(fundAllocationItemErrorMessage);
             }
         }
@@ -99,6 +91,14 @@ public class FundAllocationOrchestrator extends BaseOrchestrator {
 
         if (StringUtils.isBlank(fundAllocation.getApplyDate())) {
             resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, fundAllocationErrorMessageResource.getString("ERROR_APPLY_DATE_IS_BLANK"), null));
+        }
+
+        try {
+            if (!DateValidatorUtils.isValidPastDate(fundAllocation.getApplyDate(), "dd-mm-yyyy")) {
+                resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(fundAllocationErrorMessageResource.getString("ERROR_APPLY_DATE_IS_NOT_VALID_PAST_DATE"), fundAllocation.getUid()), null));
+            }
+        } catch (ParseException e) {
+            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(fundAllocationErrorMessageResource.getString("ERROR_APPLY_DATE_INVALID_FORMAT"), fundAllocation.getUid()), tz.go.moh.him.mediator.core.utils.StringUtils.writeStackTraceToString(e)));
         }
 
 

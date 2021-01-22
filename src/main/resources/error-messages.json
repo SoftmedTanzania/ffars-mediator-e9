@@ -1,17 +1,22 @@
 {
   "FACILITY_FUND_ALLOCATION_ERROR_MESSAGES": {
-    "ERROR_APPLY_DATE_IS_BLANK": "Error apply date must not be blank",
-    "ERROR_UUID_IS_BLANK": "Error uuid must not be blank",
+    "ERROR_APPLY_DATE_IS_BLANK": "Record failed validation, Apply date must not be blank",
+    "ERROR_APPLY_DATE_IS_NOT_VALID_PAST_DATE": "Record failed validation, Apply date is not a valid past date",
+    "ERROR_APPLY_DATE_INVALID_FORMAT": "Record failed validation, Apply date is not of the format dd-mm-yyy",
+    "ERROR_UUID_IS_BLANK": "Record failed validation, uid must not be blank",
     "ERROR_FACILITY_CODE_IS_BLANK": "Record failed validation, Facility Code must not be blank",
     "ERROR_FACILITY_NAME_IS_BLANK": "Record with Facility Code %s failed validation, Facility Name must not be blank",
     "ERROR_FACILITY_TYPE_IS_BLANK": "Record with Facility Code %s failed validation, Facility Type must not be blank"
   },
   "EXPENDITURE_ERROR_MESSAGES": {
-    "ERROR_INVALID_PAYLOAD": "Error the payload is invalid",
-    "ERROR_UUID_IS_BLANK": "Error uuid must not be blank",
-    "ERROR_APPLY_DATE_IS_BLANK": "Error apply date must not be blank",
+    "ERROR_UUID_IS_BLANK": "Record failed validation, uuid must not be blank",
+    "ERROR_APPLY_DATE_INVALID_FORMAT": "Record failed validation, Apply date is not of the format dd-mm-yyy",
+    "ERROR_APPLY_DATE_IS_NOT_VALID_PAST_DATE": "Record failed validation, Apply date is not a valid past date",
+    "ERROR_APPLY_DATE_IS_BLANK": "Record failed validation, Apply date must not be blank",
     "ERROR_INVOICE_NUMBER_IS_BLANK": "Record failed validation, Invoice number must not be blank",
     "ERROR_ORDER_DATE_IS_BLANK": "Record with Invoice Number %s failed validation, Order date must not be blank",
+    "ERROR_ORDER_DATE_INVALID_FORMAT": "Record failed validation, Order date is not of the format dd-mm-yyy",
+    "ERROR_ORDER_DATE_IS_NOT_VALID_PAST_DATE": "Record failed validation, Order date is not a valid past date",
     "ERROR_FACILITY_NAME_IS_BLANK": "Record with Invoice Number %s failed validation, Facility Name must not be blank",
     "ERROR_FACILITY_CODE_IS_BLANK": "Record with Invoice Number %s failed validation, Facility Code must not be blank",
     "ERROR_FACILITY_TYPE_IS_BLANK": "Record with Invoice Number %s failed validation, Facility Type must not be blank"

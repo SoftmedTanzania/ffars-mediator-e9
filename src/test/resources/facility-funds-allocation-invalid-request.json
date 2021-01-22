@@ -1,0 +1,15 @@
+{
+  "UID": 4590,
+  "ApplyDate": "",
+  "Items": [
+    {
+      "FacilityCode": "",
+      "FacilityName": "",
+      "FacilityType": "",
+      "Operational": true,
+      "FacilityAllocation": 30000,
+      "Description": "Mapokezi ya fedha kutoka MOF kwa awamu ya kwanza",
+      "CurrentBalance": 20000
+    }
+  ]
+}

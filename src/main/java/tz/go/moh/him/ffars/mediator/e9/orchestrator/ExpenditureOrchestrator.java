@@ -5,7 +5,6 @@ import org.codehaus.plexus.util.StringUtils;
 import org.json.JSONObject;
 import org.openhim.mediator.engine.MediatorConfig;
 import tz.go.moh.him.ffars.mediator.e9.domain.Expenditure;
-import tz.go.moh.him.ffars.mediator.e9.domain.FundAllocation;
 import tz.go.moh.him.mediator.core.domain.ErrorMessage;
 import tz.go.moh.him.mediator.core.domain.ResultDetail;
 import tz.go.moh.him.mediator.core.validator.DateValidatorUtils;
@@ -53,8 +52,8 @@ public class ExpenditureOrchestrator extends BaseOrchestrator {
     }
 
     @Override
-    protected FundAllocation convertMessageBodyToPojoList(String msg) {
-        return new Gson().fromJson(msg, FundAllocation.class);
+    protected Expenditure convertMessageBodyToPojoList(String msg) {
+        return new Gson().fromJson(msg, Expenditure.class);
     }
 
     @Override
@@ -69,15 +68,15 @@ public class ExpenditureOrchestrator extends BaseOrchestrator {
 
             itemErrorMessage.setSource(new Gson().toJson(item));
 
+            itemResultDetailsList.addAll(validateRequiredFields(item));
+
             try {
-                if (!DateValidatorUtils.isValidPastDate(expenditure.getApplyDate(), "dd-mm-yyyy")) {
-                    itemResultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(expenditureErrorMessageResource.getString("ERROR_APPLY_DATE_IS_NOT_A_VALID_PAST_DATE"), expenditure.getUid()), null));
+                if (!DateValidatorUtils.isValidPastDate(item.getOrderDate(), "dd-mm-yyyy")) {
+                    itemResultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(expenditureErrorMessageResource.getString("ERROR_ORDER_DATE_IS_NOT_A_VALID_PAST_DATE"), expenditure.getUid()), null));
                 }
             } catch (ParseException e) {
-                itemResultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(expenditureErrorMessageResource.getString("ERROR_APPLY_DATE_INVALID_FORMAT"), expenditure.getUid()), tz.go.moh.him.mediator.core.utils.StringUtils.writeStackTraceToString(e)));
+                itemResultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, expenditureErrorMessageResource.getString("ERROR_ORDER_DATE_INVALID_FORMAT"), tz.go.moh.him.mediator.core.utils.StringUtils.writeStackTraceToString(e)));
             }
-
-            itemResultDetailsList.addAll(validateRequiredFields(item));
 
 
             //TODO implement additional data validations checks
@@ -101,12 +100,20 @@ public class ExpenditureOrchestrator extends BaseOrchestrator {
 
         errorMessage.setSource(new Gson().toJson(expenditure));
 
-        if (StringUtils.isBlank(expenditure.getApplyDate())){
+        if (StringUtils.isBlank(expenditure.getApplyDate())) {
             resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, expenditureErrorMessageResource.getString("ERROR_APPLY_DATE_IS_BLANK"), null));
         }
 
-        if (StringUtils.isBlank(expenditure.getUid())){
+        if (StringUtils.isBlank(expenditure.getUid())) {
             resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, expenditureErrorMessageResource.getString("ERROR_UUID_IS_BLANK"), null));
+        }
+
+        try {
+            if (!DateValidatorUtils.isValidPastDate(expenditure.getApplyDate(), "dd-mm-yyyy")) {
+                resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(expenditureErrorMessageResource.getString("ERROR_APPLY_DATE_IS_NOT_A_VALID_PAST_DATE"), expenditure.getUid()), null));
+            }
+        } catch (ParseException e) {
+            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, expenditureErrorMessageResource.getString("ERROR_APPLY_DATE_INVALID_FORMAT"), tz.go.moh.him.mediator.core.utils.StringUtils.writeStackTraceToString(e)));
         }
 
         if (resultDetailsList.size() != 0) {

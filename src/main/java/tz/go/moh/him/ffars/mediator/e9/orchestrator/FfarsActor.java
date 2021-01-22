@@ -63,7 +63,7 @@ public class FfarsActor extends UntypedActor {
         String path = "";
         if (type.equals(FACILITY_FUNDS_ALLOCATIONS)) {
             path = config.getProperty("ffars.api.fund_allocation.path");
-        } else if(type.equals(EXPENDITURE)) {
+        } else if (type.equals(EXPENDITURE)) {
             path = config.getProperty("ffars.api.expenditure.path");
         }
 
@@ -90,14 +90,14 @@ public class FfarsActor extends UntypedActor {
         if (SimpleMediatorRequest.isInstanceOf(Expenditure.class, msg)) {
             log.info("Sending data to FFARS ...");
 
-            requestHandler = ((MediatorHTTPRequest) msg).getRequestHandler();
-            forwardToFfars(new Gson().toJson(((MediatorHTTPRequest) msg).getBody()), EXPENDITURE);
+            requestHandler = ((SimpleMediatorRequest) msg).getRequestHandler();
+            forwardToFfars(new Gson().toJson(((SimpleMediatorRequest<?>) msg).getRequestObject()), EXPENDITURE);
 
         } else if (SimpleMediatorRequest.isInstanceOf(FundAllocation.class, msg)) {
             log.info("Sending data to FFARS ...");
 
-            requestHandler = ((MediatorHTTPRequest) msg).getRequestHandler();
-            forwardToFfars(new Gson().toJson(((MediatorHTTPRequest) msg).getBody()), FACILITY_FUNDS_ALLOCATIONS);
+            requestHandler = ((SimpleMediatorRequest) msg).getRequestHandler();
+            forwardToFfars(new Gson().toJson(((SimpleMediatorRequest) msg).getRequestObject()), FACILITY_FUNDS_ALLOCATIONS);
 
         } else if (msg instanceof MediatorHTTPResponse) { //respond
             log.info("Received response from FFARS");
