@@ -39,7 +39,7 @@ public class ExpenditureOrchestrator extends BaseOrchestrator {
             resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(expenditureErrorMessageResource.getString("ERROR_ORDER_DATE_IS_BLANK"), item.getInvoiceNumber()), null));
 
         if (StringUtils.isBlank(item.getFacilityName()))
-            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(expenditureErrorMessageResource.getString("ERROR_FACILITY_NAME_IS_BLANK"), item.getFacilityName()), null));
+            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(expenditureErrorMessageResource.getString("ERROR_FACILITY_NAME_IS_BLANK"), item.getInvoiceNumber()), null));
 
         if (StringUtils.isBlank(item.getFacilityCode()))
             resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(expenditureErrorMessageResource.getString("ERROR_FACILITY_CODE_IS_BLANK"), item.getInvoiceNumber()), null));
@@ -72,7 +72,7 @@ public class ExpenditureOrchestrator extends BaseOrchestrator {
 
             try {
                 if (!DateValidatorUtils.isValidPastDate(item.getOrderDate(), "dd-mm-yyyy")) {
-                    itemResultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(expenditureErrorMessageResource.getString("ERROR_ORDER_DATE_IS_NOT_A_VALID_PAST_DATE"), expenditure.getUid()), null));
+                    itemResultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(expenditureErrorMessageResource.getString("ERROR_ORDER_DATE_IS_NOT_VALID_PAST_DATE"), expenditure.getUid()), null));
                 }
             } catch (ParseException e) {
                 itemResultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, expenditureErrorMessageResource.getString("ERROR_ORDER_DATE_INVALID_FORMAT"), tz.go.moh.him.mediator.core.utils.StringUtils.writeStackTraceToString(e)));
@@ -110,7 +110,7 @@ public class ExpenditureOrchestrator extends BaseOrchestrator {
 
         try {
             if (!DateValidatorUtils.isValidPastDate(expenditure.getApplyDate(), "dd-mm-yyyy")) {
-                resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(expenditureErrorMessageResource.getString("ERROR_APPLY_DATE_IS_NOT_A_VALID_PAST_DATE"), expenditure.getUid()), null));
+                resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(expenditureErrorMessageResource.getString("ERROR_APPLY_DATE_IS_NOT_VALID_PAST_DATE"), expenditure.getUid()), null));
             }
         } catch (ParseException e) {
             resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, expenditureErrorMessageResource.getString("ERROR_APPLY_DATE_INVALID_FORMAT"), tz.go.moh.him.mediator.core.utils.StringUtils.writeStackTraceToString(e)));

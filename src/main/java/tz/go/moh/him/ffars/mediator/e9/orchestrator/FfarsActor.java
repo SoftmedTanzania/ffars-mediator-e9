@@ -7,6 +7,7 @@ import akka.event.Logging;
 import akka.event.LoggingAdapter;
 import com.google.gson.Gson;
 import org.apache.commons.lang3.tuple.Pair;
+import org.json.JSONObject;
 import org.openhim.mediator.engine.MediatorConfig;
 import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
 import org.openhim.mediator.engine.messages.MediatorHTTPResponse;
@@ -54,25 +55,43 @@ public class FfarsActor extends UntypedActor {
         headers.put("Content-Type", "application/json");
 
         String scheme;
-        if (config.getProperty("ffars.secure").equals("true")) {
-            scheme = "https";
-        } else {
-            scheme = "http";
-        }
+        String host;
+        String path="";
+        int portNumber;
 
-        String path = "";
-        if (type.equals(FACILITY_FUNDS_ALLOCATIONS)) {
-            path = config.getProperty("ffars.api.fund_allocation.path");
-        } else if (type.equals(EXPENDITURE)) {
-            path = config.getProperty("ffars.api.expenditure.path");
+        if (config.getDynamicConfig().isEmpty()) {
+            if (config.getProperty("ffars.secure").equals("true")) {
+                scheme = "https";
+            } else {
+                scheme = "http";
+            }
+
+            host = config.getProperty("ffars.host");
+            portNumber = Integer.parseInt(config.getProperty("ffars.api.port"));
+            if (type.equals(FACILITY_FUNDS_ALLOCATIONS)) {
+                path = config.getProperty("ffars.api.fund_allocation.path");
+            } else if (type.equals(EXPENDITURE)) {
+                path = config.getProperty("ffars.api.expenditure.path");
+            }
+        } else {
+            JSONObject connectionProperties = new JSONObject(config.getDynamicConfig()).getJSONObject("ffarsConnectionProperties");
+
+            host = connectionProperties.getString("ffarsHost");
+            portNumber = connectionProperties.getInt("ffarsPort");
+
+            if (type.equals(FACILITY_FUNDS_ALLOCATIONS)) {
+                path = connectionProperties.getString("ffarsFundAllocationPath");
+            } else if (type.equals(EXPENDITURE)) {
+                path = connectionProperties.getString("ffarsExpenditurePath");
+            }
+            scheme = connectionProperties.getString("ffarsScheme");
         }
 
         List<Pair<String, String>> params = new ArrayList<>();
 
         MediatorHTTPRequest forwardToFffarsRequest = new MediatorHTTPRequest(
                 requestHandler, getSelf(), "Sending Data to the FFARS Server", "POST", scheme,
-                config.getProperty("ffars.host"), Integer.parseInt(config.getProperty("ffars.api.port")), path,
-                message, headers, params
+                host, portNumber, path, message, headers, params
         );
 
         ActorSelection httpConnector = getContext().actorSelection(config.userPathFor("http-connector"));
