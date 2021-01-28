@@ -39,7 +39,7 @@ public class ExpenditureOrchestrator extends BaseOrchestrator {
             resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(expenditureErrorMessageResource.getString("ERROR_ORDER_DATE_IS_BLANK"), item.getInvoiceNumber()), null));
 
         if (StringUtils.isBlank(item.getFacilityName()))
-            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(expenditureErrorMessageResource.getString("ERROR_FACILITY_NAME_IS_BLANK"), item.getFacilityName()), null));
+            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(expenditureErrorMessageResource.getString("ERROR_FACILITY_NAME_IS_BLANK"), item.getInvoiceNumber()), null));
 
         if (StringUtils.isBlank(item.getFacilityCode()))
             resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(expenditureErrorMessageResource.getString("ERROR_FACILITY_CODE_IS_BLANK"), item.getInvoiceNumber()), null));
