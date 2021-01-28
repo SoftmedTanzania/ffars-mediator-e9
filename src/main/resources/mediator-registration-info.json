@@ -77,13 +77,13 @@
         {
           "param": "ffarsFundAllocationPath",
           "displayName": "FFARS Funds Allocation API Path",
-          "description": "The the path to the correct endpoint for receiving fund Allocation of data from the HIM. eg /ffars/funds-allocation",
+          "description": "The path to the endpoint for receiving Fund Allocations data from the HIM. eg /ffars/funds-allocation",
           "type": "string"
         },
         {
           "param": "ffarsExpenditurePath",
           "displayName": "FFARS Expenditure API Path",
-          "description": "The the path to the correct endpoint for receiving of data from the HIM. eg /ffars/expenditure",
+          "description": "The path to the endpoint for receiving expenditure data from the HIM. eg /ffars/expenditure",
           "type": "string"
         },
         {
