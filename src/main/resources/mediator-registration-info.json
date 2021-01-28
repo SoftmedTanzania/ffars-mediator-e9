@@ -54,5 +54,49 @@
         }
       ]
     }
+  ],
+  "configDefs": [
+    {
+      "param": "ffarsConnectionProperties",
+      "displayName": "FFARS Connection Properties",
+      "description": "Configuration to set the hostname, port and path for the FFARS server",
+      "type": "struct",
+      "template": [
+        {
+          "param": "ffarsHost",
+          "displayName": "FFARS Server Host Name",
+          "description": "IP address/hostname of the FFARS server. e.g 192.168.1.1",
+          "type": "string"
+        },
+        {
+          "param": "ffarsPort",
+          "displayName": "FFARS Port Number",
+          "description": "The port number of that the ffars server is running on. e.g 8080",
+          "type": "number"
+        },
+        {
+          "param": "ffarsFundAllocationPath",
+          "displayName": "FFARS Funds Allocation API Path",
+          "description": "The the path to the correct endpoint for receiving fund Allocation of data from the HIM. eg /ffars/funds-allocation",
+          "type": "string"
+        },
+        {
+          "param": "ffarsExpenditurePath",
+          "displayName": "FFARS Expenditure API Path",
+          "description": "The the path to the correct endpoint for receiving of data from the HIM. eg /ffars/expenditure",
+          "type": "string"
+        },
+        {
+          "param": "ffarsScheme",
+          "displayName": "FFARS Scheme",
+          "description": "Whether the ffars server is using HTTP or HTTPS requests",
+          "type": "option",
+          "values": [
+            "http",
+            "https"
+          ]
+        }
+      ]
+    }
   ]
 }
