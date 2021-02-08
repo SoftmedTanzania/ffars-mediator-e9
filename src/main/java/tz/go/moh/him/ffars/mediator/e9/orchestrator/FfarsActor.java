@@ -89,8 +89,6 @@ public class FfarsActor extends UntypedActor {
             }
 
             if (!connectionProperties.getString("destinationUsername").isEmpty() && !connectionProperties.getString("destinationPassword").isEmpty()) {
-                headers.put("Content-Type", "application/json");
-
                 String auth = connectionProperties.getString("destinationUsername") + ":" + connectionProperties.getString("destinationPassword");
                 byte[] encodedAuth = Base64.encodeBase64(
                         auth.getBytes(StandardCharsets.ISO_8859_1));
