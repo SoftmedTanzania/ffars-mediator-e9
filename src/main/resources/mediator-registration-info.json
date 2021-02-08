@@ -25,7 +25,7 @@
       "urlPattern": "^/ffars-expenditure$",
       "type": "http",
       "allow": [
-        "msd-epicor9-to-ffars-mediator"
+        "epicor-role"
       ],
       "routes": [
         {
@@ -42,7 +42,7 @@
       "urlPattern": "^/ffars-fund-allocation",
       "type": "http",
       "allow": [
-        "msd-epicor9-to-ffars-mediator"
+        "epicor-role"
       ],
       "routes": [
         {
