@@ -95,6 +95,18 @@
             "http",
             "https"
           ]
+        },
+        {
+          "param": "destinationUsername",
+          "displayName": "Destination Username",
+          "description": "The destination username for receiving of data from the HIM.",
+          "type": "string"
+        },
+        {
+          "param": "destinationPassword",
+          "displayName": "Destination Password",
+          "description": "The destination password for receiving of data from the HIM.",
+          "type": "password"
         }
       ]
     }
