@@ -88,8 +88,8 @@ public class FfarsActor extends UntypedActor {
                 path = connectionProperties.getString("ffarsExpenditurePath");
             }
 
-            if (!connectionProperties.getString("destinationUsername").isEmpty() && !connectionProperties.getString("destinationPassword").isEmpty()) {
-                String auth = connectionProperties.getString("destinationUsername") + ":" + connectionProperties.getString("destinationPassword");
+            if (!connectionProperties.getString("ffarsUsername").isEmpty() && !connectionProperties.getString("ffarsPassword").isEmpty()) {
+                String auth = connectionProperties.getString("ffarsUsername") + ":" + connectionProperties.getString("ffarsPassword");
                 byte[] encodedAuth = Base64.encodeBase64(
                         auth.getBytes(StandardCharsets.ISO_8859_1));
                 String authHeader = "Basic " + new String(encodedAuth);

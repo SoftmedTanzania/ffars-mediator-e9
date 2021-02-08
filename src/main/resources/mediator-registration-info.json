@@ -97,15 +97,15 @@
           ]
         },
         {
-          "param": "destinationUsername",
-          "displayName": "Destination Username",
-          "description": "The destination username for receiving of data from the HIM.",
+          "param": "ffarsUsername",
+          "displayName": "FFARS Username",
+          "description": "The FFARS username for receiving of data from the HIM.",
           "type": "string"
         },
         {
-          "param": "destinationPassword",
-          "displayName": "Destination Password",
-          "description": "The destination password for receiving of data from the HIM.",
+          "param": "ffarsPassword",
+          "displayName": "FFARS Password",
+          "description": "The FFARS password for receiving of data from the HIM.",
           "type": "password"
         }
       ]
