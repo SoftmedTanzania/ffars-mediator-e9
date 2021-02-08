@@ -5,14 +5,14 @@
   "description": "An openHIM mediator for handling  sharing of Facility Fund allocations and Expenditure from MSD Epicor9 to FFARS",
   "endpoints": [
     {
-      "name": "MSD Epicor9 to FFARS Expenditure Mediator Route",
+      "name": "FFARS Expenditure Route",
       "host": "localhost",
       "port": "3004",
       "path": "/ffars-expenditure",
       "type": "http"
     },
     {
-      "name": "MSD Epicor9 to FFARS Fund Allocation Mediator Route",
+      "name": "FFARS Fund Allocation Route",
       "host": "localhost",
       "port": "3004",
       "path": "/ffars-fund-allocation",
@@ -21,7 +21,7 @@
   ],
   "defaultChannelConfig": [
     {
-      "name": "MSD Epicor9 to FFARS Expenditure Mediator",
+      "name": "FFARS Expenditure Channel",
       "urlPattern": "^/ffars-expenditure$",
       "type": "http",
       "allow": [
@@ -29,7 +29,7 @@
       ],
       "routes": [
         {
-          "name": "MSD Epicor9 to FFARS Expenditure Mediator Route",
+          "name": "FFARS Expenditure Route",
           "host": "localhost",
           "port": "3004",
           "path": "/ffars-expenditure",
@@ -38,7 +38,7 @@
       ]
     },
     {
-      "name": "MSD Epicor9 to FFARS Fund Allocation Mediator",
+      "name": "FFARS Fund Allocation Channel",
       "urlPattern": "^/ffars-fund-allocation",
       "type": "http",
       "allow": [
@@ -46,7 +46,7 @@
       ],
       "routes": [
         {
-          "name": "MSD Epicor9 to FFARS Fund Allocation Mediator Route",
+          "name": "FFARS Fund Allocation Route",
           "host": "localhost",
           "port": "3004",
           "path": "/ffars-fund-allocation",
