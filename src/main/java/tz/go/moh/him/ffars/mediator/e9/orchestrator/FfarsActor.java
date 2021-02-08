@@ -6,7 +6,9 @@ import akka.actor.UntypedActor;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 import com.google.gson.Gson;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.http.HttpHeaders;
 import org.json.JSONObject;
 import org.openhim.mediator.engine.MediatorConfig;
 import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
@@ -15,6 +17,7 @@ import org.openhim.mediator.engine.messages.SimpleMediatorRequest;
 import tz.go.moh.him.ffars.mediator.e9.domain.Expenditure;
 import tz.go.moh.him.ffars.mediator.e9.domain.FundAllocation;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -56,7 +59,7 @@ public class FfarsActor extends UntypedActor {
 
         String scheme;
         String host;
-        String path="";
+        String path = "";
         int portNumber;
 
         if (config.getDynamicConfig().isEmpty()) {
@@ -84,6 +87,17 @@ public class FfarsActor extends UntypedActor {
             } else if (type.equals(EXPENDITURE)) {
                 path = connectionProperties.getString("ffarsExpenditurePath");
             }
+
+            if (!connectionProperties.getString("destinationUsername").isEmpty() && !connectionProperties.getString("destinationPassword").isEmpty()) {
+                headers.put("Content-Type", "application/json");
+
+                String auth = connectionProperties.getString("destinationUsername") + ":" + connectionProperties.getString("destinationPassword");
+                byte[] encodedAuth = Base64.encodeBase64(
+                        auth.getBytes(StandardCharsets.ISO_8859_1));
+                String authHeader = "Basic " + new String(encodedAuth);
+                headers.put(HttpHeaders.AUTHORIZATION, authHeader);
+            }
+
             scheme = connectionProperties.getString("ffarsScheme");
         }
 
