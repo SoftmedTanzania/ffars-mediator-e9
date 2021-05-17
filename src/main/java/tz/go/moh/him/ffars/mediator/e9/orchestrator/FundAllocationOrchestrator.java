@@ -92,15 +92,6 @@ public class FundAllocationOrchestrator extends BaseOrchestrator {
             resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, fundAllocationErrorMessageResource.getString("ERROR_APPLY_DATE_IS_BLANK"), null));
         }
 
-        try {
-            if (!DateValidatorUtils.isValidPastDate(fundAllocation.getApplyDate(), checkDateFormatStrings(fundAllocation.getApplyDate()))) {
-                resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(fundAllocationErrorMessageResource.getString("ERROR_APPLY_DATE_IS_NOT_VALID_PAST_DATE"), fundAllocation.getUid()), null));
-            }
-        } catch (ParseException e) {
-            resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(fundAllocationErrorMessageResource.getString("ERROR_APPLY_DATE_INVALID_FORMAT"), fundAllocation.getUid()), tz.go.moh.him.mediator.core.utils.StringUtils.writeStackTraceToString(e)));
-        }
-
-
         if (resultDetailsList.size() != 0) {
             //Adding the validation results to the Error message object
             errorMessage.setResultsDetails(resultDetailsList);

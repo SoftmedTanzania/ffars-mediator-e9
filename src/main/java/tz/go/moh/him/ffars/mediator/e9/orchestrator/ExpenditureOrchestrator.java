@@ -70,15 +70,6 @@ public class ExpenditureOrchestrator extends BaseOrchestrator {
 
             itemResultDetailsList.addAll(validateRequiredFields(item));
 
-            try {
-                if (!DateValidatorUtils.isValidPastDate(item.getOrderDate(), "dd-mm-yyyy")) {
-                    itemResultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(expenditureErrorMessageResource.getString("ERROR_ORDER_DATE_IS_NOT_VALID_PAST_DATE"), expenditure.getUid()), null));
-                }
-            } catch (ParseException e) {
-                itemResultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, expenditureErrorMessageResource.getString("ERROR_ORDER_DATE_INVALID_FORMAT"), tz.go.moh.him.mediator.core.utils.StringUtils.writeStackTraceToString(e)));
-            }
-
-
             //TODO implement additional data validations checks
             if (itemResultDetailsList.size() != 0) {
                 //Adding the validation results to the Error message object
@@ -109,7 +100,7 @@ public class ExpenditureOrchestrator extends BaseOrchestrator {
         }
 
         try {
-            if (!DateValidatorUtils.isValidPastDate(expenditure.getApplyDate(), "dd-mm-yyyy")) {
+            if (!DateValidatorUtils.isValidPastDate(expenditure.getApplyDate(), checkDateFormatStrings(expenditure.getApplyDate()))) {
                 resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(expenditureErrorMessageResource.getString("ERROR_APPLY_DATE_IS_NOT_VALID_PAST_DATE"), expenditure.getUid()), null));
             }
         } catch (ParseException e) {

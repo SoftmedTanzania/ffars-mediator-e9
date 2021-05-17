@@ -33,19 +33,19 @@ public class ExpenditureTest {
         Expenditure fundAllocation = gson.fromJson(data, Expenditure.class);
         Expenditure.Item item = fundAllocation.getItems().get(0);
 
-        Assert.assertEquals("4590", fundAllocation.getUid());
-        Assert.assertEquals("12-02-2019", fundAllocation.getApplyDate());
-        Assert.assertEquals("12-09-2018", item.getOrderDate());
-        Assert.assertEquals("INV003-2019", item.getInvoiceNumber());
-        Assert.assertEquals("109089890", item.getFacilityCode());
-        Assert.assertEquals("Majengo", item.getFacilityName());
-        Assert.assertEquals("HC", item.getFacilityType());
-        Assert.assertEquals("Any description  or empty", item.getDescription());
+        Assert.assertEquals("1621261705", fundAllocation.getUid());
+        Assert.assertEquals("2021-05-17", fundAllocation.getApplyDate());
+        Assert.assertEquals("2021-05-10", item.getOrderDate());
+        Assert.assertEquals("204486", item.getInvoiceNumber());
+        Assert.assertEquals("HQ100022", item.getFacilityCode());
+        Assert.assertEquals("Nbts / Moh", item.getFacilityName());
+        Assert.assertEquals("MoH & Social Welfare", item.getFacilityType());
+        Assert.assertEquals("", item.getDescription());
         Assert.assertTrue(item.isOperational());
-        Assert.assertEquals(30000, item.getTotalCost());
-        Assert.assertEquals(24000, item.getInKInd());
-        Assert.assertEquals(6000, item.getOtherSource());
-        Assert.assertEquals(20000, item.getCurrentBalance());
+        Assert.assertEquals(2864000.00, item.getTotalCost(),1);
+        Assert.assertEquals(0.00, item.getInKInd(),1);
+        Assert.assertEquals(0.00, item.getOtherSource(),1);
+        Assert.assertEquals(530642138.11, item.getCurrentBalance(),1);
 
     }
 
