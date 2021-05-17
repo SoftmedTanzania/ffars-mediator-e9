@@ -86,13 +86,16 @@ public class FundAllocation {
         @SerializedName("Description")
         private String description;
 
+        @SerializedName("CashReceiptNumber")
+        private String cashReceiptNumber;
+
         /**
          * Current balance remain for the facility
          */
         @SerializedName("CurrentBalance")
-        private long currentBalance;
+        private double currentBalance;
 
-        public Item(String facilityCode, String facilityName, String facilityType, boolean operational, long facilityAllocation, String description, long currentBalance) {
+        public Item(String facilityCode, String facilityName, String facilityType, boolean operational, long facilityAllocation, String description, double currentBalance, String cashReceiptNumber) {
             if (StringUtils.isNullOrEmpty(facilityCode)) {
                 throw new ArgumentNullException("Facility Code - Value cannot be null");
             }
@@ -112,6 +115,7 @@ public class FundAllocation {
             this.facilityAllocation = facilityAllocation;
             this.description = description;
             this.currentBalance = currentBalance;
+            this.cashReceiptNumber = cashReceiptNumber;
         }
 
         public String getFacilityCode() {
@@ -138,8 +142,12 @@ public class FundAllocation {
             return description;
         }
 
-        public long getCurrentBalance() {
+        public double getCurrentBalance() {
             return currentBalance;
+        }
+
+        public String getCashReceiptNumber() {
+            return cashReceiptNumber;
         }
     }
 }
