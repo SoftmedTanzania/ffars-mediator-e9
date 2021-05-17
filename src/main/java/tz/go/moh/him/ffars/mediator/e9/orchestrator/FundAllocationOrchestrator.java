@@ -93,7 +93,7 @@ public class FundAllocationOrchestrator extends BaseOrchestrator {
         }
 
         try {
-            if (!DateValidatorUtils.isValidPastDate(fundAllocation.getApplyDate(), "dd-mm-yyyy")) {
+            if (!DateValidatorUtils.isValidPastDate(fundAllocation.getApplyDate(), checkDateFormatStrings(fundAllocation.getApplyDate()))) {
                 resultDetailsList.add(new ResultDetail(ResultDetail.ResultsDetailsType.ERROR, String.format(fundAllocationErrorMessageResource.getString("ERROR_APPLY_DATE_IS_NOT_VALID_PAST_DATE"), fundAllocation.getUid()), null));
             }
         } catch (ParseException e) {

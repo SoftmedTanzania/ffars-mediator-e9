@@ -19,6 +19,8 @@ import tz.go.moh.him.mediator.core.utils.StringUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -136,5 +138,19 @@ public abstract class BaseOrchestrator extends UntypedActor {
                         originalRequest.getRequestHandler(),
                         getSelf(),
                         object), getSelf());
+    }
+
+    public static String checkDateFormatStrings(String dateString) {
+        List<String> formatStrings = Arrays.asList("yyyy-MM-dd HH:mm:ss:ms","yyyy-MM-dd HH:mm:ss.SSS", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd", "yyyyMMdd");
+        for (String formatString : formatStrings) {
+            try {
+                new SimpleDateFormat(formatString).parse(dateString);
+                return formatString;
+            } catch (ParseException e) {
+                //e.printStackTrace();
+            }
+        }
+
+        return "";
     }
 }
