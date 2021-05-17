@@ -1,15 +1,96 @@
 {
-  "UID": 4590,
-  "ApplyDate": "12-02-2019",
+  "UID": "1621259720",
+  "ApplyDate": "2020-07-10",
   "Items": [
     {
-      "FacilityCode": "109089890",
-      "FacilityName": "Mahida",
-      "FacilityType": "DISP",
-      "Operational": true,
-      "FacilityAllocation": 30000,
-      "Description": "Mapokezi ya fedha kutoka MOF kwa awamu ya kwanza",
-      "CurrentBalance": 20000
+      "CashReceiptNumber": "BRHQ-000010",
+      "FacilityCode": "DR510004",
+      "FacilityName": "Vijibweni Hospital Kigamboni",
+      "FacilityType": "District Hospitals",
+      "Operational": "True",
+      "FacilityAllocation": "7579500.00",
+      "Description": "Advance Payment",
+      "CurrentBalance": "14606648.61"
+    },
+    {
+      "CashReceiptNumber": "BRHQ-000012",
+      "FacilityCode": "DR510004",
+      "FacilityName": "Vijibweni Hospital Kigamboni",
+      "FacilityType": "District Hospitals",
+      "Operational": "True",
+      "FacilityAllocation": "4612300.00",
+      "Description": "ADVANCE PAYMENT",
+      "CurrentBalance": "14606648.61"
+    },
+    {
+      "CashReceiptNumber": "BRHQ-000149",
+      "FacilityCode": "MB510043",
+      "FacilityName": "Ndalambo Health Centre",
+      "FacilityType": "Pr Health Facilities",
+      "Operational": "True",
+      "FacilityAllocation": "10179470.00",
+      "Description": "Advance Payment",
+      "CurrentBalance": "-9982491.81"
+    },
+    {
+      "CashReceiptNumber": "BRHQ-000008",
+      "FacilityCode": "MB520760",
+      "FacilityName": "Kalangali Dispensary -Ils (Chunya Dc)",
+      "FacilityType": "Pr Health Facilities",
+      "Operational": "True",
+      "FacilityAllocation": "1110000.00",
+      "Description": "Advance Payable",
+      "CurrentBalance": "918366.00"
+    },
+    {
+      "CashReceiptNumber": "BRHQ-000004",
+      "FacilityCode": "MB520012",
+      "FacilityName": "Chalangwa -Ils Dispensary (Chunya Dc )",
+      "FacilityType": "Pr Health Facilities",
+      "Operational": "True",
+      "FacilityAllocation": "7543045.00",
+      "Description": "Advance payment",
+      "CurrentBalance": "2528804.16"
+    },
+    {
+      "CashReceiptNumber": "BRHQ-000006",
+      "FacilityCode": "MB520012",
+      "FacilityName": "Chalangwa -Ils Dispensary (Chunya Dc )",
+      "FacilityType": "Pr Health Facilities",
+      "Operational": "True",
+      "FacilityAllocation": "5888000.00",
+      "Description": "Advance Payment",
+      "CurrentBalance": "2528804.16"
+    },
+    {
+      "CashReceiptNumber": "BRHQ-000147",
+      "FacilityCode": "MB520715",
+      "FacilityName": "Nkala Dispensary -Momba Dc",
+      "FacilityType": "Pr Health Facilities",
+      "Operational": "True",
+      "FacilityAllocation": "10877508.00",
+      "Description": "Advance Payemnt",
+      "CurrentBalance": "-10290853.00"
+    },
+    {
+      "CashReceiptNumber": "BRHQ-00000330",
+      "FacilityCode": "MZ410008",
+      "FacilityName": "Rmo Geita (Hospital Ya Rufaa Ya Mkoa Wa Geita)",
+      "FacilityType": "District Hospitals",
+      "Operational": "True",
+      "FacilityAllocation": "41450000.00",
+      "Description": "ALLOCATION FOR RRH MARCH 2021",
+      "CurrentBalance": "78919933.00"
+    },
+    {
+      "CashReceiptNumber": "BRHQ-000001",
+      "FacilityCode": "IR520646",
+      "FacilityName": "Mtitu Dispensary-Ils ( Kilolo Dc)",
+      "FacilityType": "Pr Health Facilities",
+      "Operational": "True",
+      "FacilityAllocation": "543500.00",
+      "Description": "SALES OF MEDICAL SUPPLIES",
+      "CurrentBalance": "-1505660.00"
     }
   ]
 }

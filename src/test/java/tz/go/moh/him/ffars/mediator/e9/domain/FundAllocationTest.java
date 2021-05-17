@@ -33,15 +33,16 @@ public class FundAllocationTest {
         FundAllocation fundAllocation = gson.fromJson(data, FundAllocation.class);
         FundAllocation.Item item = fundAllocation.getItems().get(0);
 
-        Assert.assertEquals("4590", fundAllocation.getUid());
-        Assert.assertEquals("12-02-2019", fundAllocation.getApplyDate());
-        Assert.assertEquals("109089890", item.getFacilityCode());
-        Assert.assertEquals("Mahida", item.getFacilityName());
-        Assert.assertEquals("DISP", item.getFacilityType());
-        Assert.assertEquals("Mapokezi ya fedha kutoka MOF kwa awamu ya kwanza", item.getDescription());
+        Assert.assertEquals("1621259720", fundAllocation.getUid());
+        Assert.assertEquals("2020-07-10", fundAllocation.getApplyDate());
+        Assert.assertEquals("DR510004", item.getFacilityCode());
+        Assert.assertEquals("DR510004", item.getFacilityCode());
+        Assert.assertEquals("Vijibweni Hospital Kigamboni", item.getFacilityName());
+        Assert.assertEquals("District Hospitals", item.getFacilityType());
+        Assert.assertEquals("Advance Payment", item.getDescription());
         Assert.assertTrue(item.isOperational());
-        Assert.assertEquals(30000, item.getFacilityAllocation());
-        Assert.assertEquals(20000, item.getCurrentBalance());
+        Assert.assertEquals(7579500.00, item.getFacilityAllocation(), 1);
+        Assert.assertEquals(14606648.61, item.getCurrentBalance(),1);
 
     }
 
@@ -50,7 +51,7 @@ public class FundAllocationTest {
      */
     @Test
     public void testSerializeFundAllocation() {
-        FundAllocation.Item item = new FundAllocation.Item("109089890", "Mahida", "DISP", true, 40000, "desc", 30000);
+        FundAllocation.Item item = new FundAllocation.Item("109089890", "Mahida", "DISP", true, 40000, "desc", 30000,"BRHQ-00000330");
         FundAllocation fundAllocation = new FundAllocation("123412341234", "12-02-2019", Arrays.asList(item));
 
         Gson gson = new Gson();
@@ -65,6 +66,7 @@ public class FundAllocationTest {
         Assert.assertTrue(actual.contains("40000"));
         Assert.assertTrue(actual.contains("desc"));
         Assert.assertTrue(actual.contains("30000"));
+        Assert.assertTrue(actual.contains("BRHQ-00000330"));
     }
 
     /**
