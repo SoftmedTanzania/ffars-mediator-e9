@@ -93,19 +93,19 @@ public class Expenditure {
          * Specify Invoice total (InKind + other source)
          */
         @SerializedName("TotalCost")
-        private long totalCost;
+        private double totalCost;
 
         /**
          * Central government fund source via MSD
          */
         @SerializedName("InKInd")
-        private long inKInd;
+        private double inKInd;
 
         /**
          * Any other facility fund source
          */
         @SerializedName("OtherSource")
-        private long otherSource;
+        private double otherSource;
 
         @SerializedName("Description")
         private String description;
@@ -114,9 +114,9 @@ public class Expenditure {
          * Current balance remain for the facility
          */
         @SerializedName("CurrentBalance")
-        private long CurrentBalance;
+        private double CurrentBalance;
 
-        public Item(String orderDate, String invoiceNumber, String facilityCode, String facilityName, String facilityType, boolean operational, long totalCost, long inKInd, long otherSource, String description, long currentBalance) {
+        public Item(String orderDate, String invoiceNumber, String facilityCode, String facilityName, String facilityType, boolean operational, double totalCost, double inKInd, double otherSource, String description, double currentBalance) {
             if (StringUtils.isNullOrEmpty(orderDate)) {
                 throw new ArgumentNullException("Order Date - Value cannot be null");
             }
@@ -174,15 +174,15 @@ public class Expenditure {
             return operational;
         }
 
-        public long getTotalCost() {
+        public double getTotalCost() {
             return totalCost;
         }
 
-        public long getInKInd() {
+        public double getInKInd() {
             return inKInd;
         }
 
-        public long getOtherSource() {
+        public double getOtherSource() {
             return otherSource;
         }
 
@@ -190,7 +190,7 @@ public class Expenditure {
             return description;
         }
 
-        public long getCurrentBalance() {
+        public double getCurrentBalance() {
             return CurrentBalance;
         }
     }
