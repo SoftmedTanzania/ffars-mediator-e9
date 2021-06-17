@@ -1,7 +1,7 @@
 {
   "urn": "urn:uuid:bdde5460-5175-11eb-8313-374a281684a3",
   "version": "0.1.0",
-  "name": "MSD Epicor9 to FFARS Mediator",
+  "name": "MSD Epicor10 - FFARS Mediator",
   "description": "An openHIM mediator for handling  sharing of Facility Fund allocations and Expenditure from MSD Epicor9 to FFARS",
   "endpoints": [
     {
